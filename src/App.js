@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useFetchJobs from './customHook/useFetchJobs';
 
 const App = () => {
-	const { loading, jobs, error } = useFetchJobs();
+	const [ page, setPage ] = useState(1);
+	const [ params, setParams ] = useState({});
+	const { loading, jobs, error } = useFetchJobs(params, page);
 	return (
 		<div>
 			{loading && <h1>Loading...</h1>}
