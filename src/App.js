@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import useFetchJobs from './customHook/useFetchJobs';
+import Job from './components/Job';
+import { Container } from 'react-bootstrap';
 
 const App = () => {
 	const [ page, setPage ] = useState(1);
 	const [ params, setParams ] = useState({});
 	const { loading, jobs, error } = useFetchJobs(params, page);
 	return (
-		<div>
+		<Container className='my-4'>
+			<h1 className='mb-4'>GitHub Job Finder</h1>
 			{loading && <h1>Loading...</h1>}
 			{error && <h1>Error. Try Refreshing.</h1>}
-			<h1>{jobs.length}</h1>
-		</div>
+			{jobs.map((job) => {
+				return <Job key={job.id} job={job} />;
+			})}
+		</Container>
 	);
 };
 
